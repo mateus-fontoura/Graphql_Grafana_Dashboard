@@ -1,0 +1,1129 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": {
+          "type": "grafana",
+          "uid": "-- Grafana --"
+        },
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "target": {
+          "limit": 100,
+          "matchAny": false,
+          "tags": [],
+          "type": "dashboard"
+        },
+        "type": "dashboard"
+      }
+    ]
+  },
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 0,
+  "id": 15,
+  "links": [],
+  "liveNow": false,
+  "panels": [
+    {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      "id": 20,
+      "panels": [],
+      "title": "Http Status",
+      "type": "row"
+    },
+    {
+      "datasource": {
+        "type": "fifemon-graphql-datasource",
+        "uid": "d0f5e364-208f-4e83-b8cd-d5fdd0fc18d3"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "blue",
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            }
+          },
+          "mappings": []
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 7,
+        "x": 0,
+        "y": 1
+      },
+      "id": 21,
+      "options": {
+        "displayLabels": [
+          "percent"
+        ],
+        "legend": {
+          "displayMode": "list",
+          "placement": "right",
+          "showLegend": true,
+          "values": []
+        },
+        "pieType": "pie",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "aliasBy": "",
+          "annotationTags": "",
+          "annotationText": "",
+          "annotationTitle": "",
+          "constant": 6.5,
+          "dataPath": "httpEvents",
+          "datasource": {
+            "type": "fifemon-graphql-datasource",
+            "uid": "d0f5e364-208f-4e83-b8cd-d5fdd0fc18d3"
+          },
+          "endTimePath": "endTime",
+          "groupBy": "[]",
+          "queryText": "     query {\n  httpEvents(\n    limit: 10000,\n    filter: {\n      tsRange: { begin: \"${__from:date:iso}\", end: \"${__to:date:iso}\" },\n      host: \"$host\",\n      #statusRange: { begin: 300, end: 399 }\n    },\n    aggregate: {count: host} \n    groupBy: [status]\n  ) {\n    status\n    count\n  }\n}\n",
+          "refId": "A",
+          "timePath": "tsRange"
+        }
+      ],
+      "title": "HTTP Status by %",
+      "transformations": [
+        {
+          "id": "rowsToFields",
+          "options": {
+            "mappings": [
+              {
+                "fieldName": "_status",
+                "handlerKey": "field.name"
+              },
+              {
+                "fieldName": "_count",
+                "handlerKey": "field.value"
+              }
+            ]
+          }
+        }
+      ],
+      "type": "piechart"
+    },
+    {
+      "datasource": {
+        "type": "fifemon-graphql-datasource",
+        "uid": "d0f5e364-208f-4e83-b8cd-d5fdd0fc18d3"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "green",
+            "mode": "shades"
+          },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "series",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "bars",
+            "fillOpacity": 25,
+            "gradientMode": "hue",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 3,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "normal"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 7,
+        "x": 7,
+        "y": 1
+      },
+      "id": 16,
+      "options": {
+        "legend": {
+          "calcs": [
+            "logmin",
+            "mean",
+            "max"
+          ],
+          "displayMode": "list",
+          "placement": "right",
+          "showLegend": false,
+          "width": 100
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "aliasBy": "2XX",
+          "annotationTags": "",
+          "annotationText": "",
+          "annotationTitle": "",
+          "constant": 6.5,
+          "dataPath": "httpEvents",
+          "datasource": {
+            "type": "fifemon-graphql-datasource",
+            "uid": "d0f5e364-208f-4e83-b8cd-d5fdd0fc18d3"
+          },
+          "endTimePath": "endTime",
+          "groupBy": "[]",
+          "queryText": "     query {\n  httpEvents(\n    limit: 10000,\n    filter: {\n      tsRange: { begin: \"${__from:date:iso}\", end: \"${__to:date:iso}\" },\n      host: \"$host\",\n      statusRange: { begin: 200, end: 299 }\n    },\n    aggregate: {count: status} \n    groupBy: [ts, status]\n  ) {\n    ts\n    count\n  }\n}\n",
+          "refId": "A",
+          "timePath": "tsRange"
+        }
+      ],
+      "title": "Status 2xx",
+      "transformations": [],
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "fifemon-graphql-datasource",
+        "uid": "d0f5e364-208f-4e83-b8cd-d5fdd0fc18d3"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "blue",
+            "mode": "shades"
+          },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "series",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "bars",
+            "fillOpacity": 25,
+            "gradientMode": "hue",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 3,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "normal"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 7,
+        "x": 14,
+        "y": 1
+      },
+      "id": 17,
+      "options": {
+        "legend": {
+          "calcs": [
+            "logmin",
+            "mean",
+            "max"
+          ],
+          "displayMode": "list",
+          "placement": "right",
+          "showLegend": false,
+          "width": 100
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "aliasBy": "2XX",
+          "annotationTags": "",
+          "annotationText": "",
+          "annotationTitle": "",
+          "constant": 6.5,
+          "dataPath": "httpEvents",
+          "datasource": {
+            "type": "fifemon-graphql-datasource",
+            "uid": "d0f5e364-208f-4e83-b8cd-d5fdd0fc18d3"
+          },
+          "endTimePath": "endTime",
+          "groupBy": "[]",
+          "queryText": "     query {\n  httpEvents(\n    limit: 10000,\n    filter: {\n      tsRange: { begin: \"${__from:date:iso}\", end: \"${__to:date:iso}\" },\n      host: \"$host\",\n      statusRange: { begin: 300, end: 399 }\n    },\n    aggregate: {count: status} \n    groupBy: [ts, status]\n  ) {\n    ts\n    count\n  }\n}\n",
+          "refId": "A",
+          "timePath": "tsRange"
+        }
+      ],
+      "title": "Status 3xx",
+      "transformations": [],
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "fifemon-graphql-datasource",
+        "uid": "d0f5e364-208f-4e83-b8cd-d5fdd0fc18d3"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            }
+          },
+          "mappings": []
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 6,
+        "x": 0,
+        "y": 9
+      },
+      "id": 2,
+      "options": {
+        "displayLabels": [],
+        "legend": {
+          "displayMode": "list",
+          "placement": "right",
+          "showLegend": true,
+          "values": []
+        },
+        "pieType": "pie",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "9.3.6",
+      "targets": [
+        {
+          "aliasBy": "",
+          "annotationTags": "",
+          "annotationText": "",
+          "annotationTitle": "",
+          "constant": 6.5,
+          "dataPath": "httpEvents",
+          "datasource": {
+            "type": "fifemon-graphql-datasource",
+            "uid": "loKOM5K4k"
+          },
+          "endTimePath": "endTime",
+          "groupBy": "host",
+          "queryText": "query {\n      httpEvents(\n   limit: 10,\n   filter: {\n\ttsRange: { begin: \"${__from:date:iso}\", end: \"${__to:date:iso}\" }\n\t \n\t\t},\n   aggregate: {count: host}  \n   groupBy: [host,status]\n   #orderBy: [count_DESC]\n   )\n {\n   host\n  #status\n   count\n   \n }\n}",
+          "refId": "A",
+          "timeFormat": "",
+          "timePath": "tsRange"
+        }
+      ],
+      "title": "TOp 10  hosts",
+      "transparent": true,
+      "type": "piechart"
+    },
+    {
+      "datasource": {
+        "type": "fifemon-graphql-datasource",
+        "uid": "d0f5e364-208f-4e83-b8cd-d5fdd0fc18d3"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "orange",
+            "mode": "shades"
+          },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "series",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "bars",
+            "fillOpacity": 25,
+            "gradientMode": "hue",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 3,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "normal"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 7,
+        "x": 7,
+        "y": 9
+      },
+      "id": 19,
+      "options": {
+        "legend": {
+          "calcs": [
+            "logmin",
+            "mean",
+            "max"
+          ],
+          "displayMode": "list",
+          "placement": "right",
+          "showLegend": false,
+          "width": 100
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "aliasBy": "4XX",
+          "annotationTags": "",
+          "annotationText": "",
+          "annotationTitle": "",
+          "constant": 6.5,
+          "dataPath": "httpEvents",
+          "datasource": {
+            "type": "fifemon-graphql-datasource",
+            "uid": "d0f5e364-208f-4e83-b8cd-d5fdd0fc18d3"
+          },
+          "endTimePath": "endTime",
+          "groupBy": "[]",
+          "queryText": "     query {\n  httpEvents(\n    limit: 10000,\n    filter: {\n      tsRange: { begin: \"${__from:date:iso}\", end: \"${__to:date:iso}\" },\n      host: \"$host\",\n      statusRange: { begin: 400, end: 499 }\n    },\n    aggregate: {count: status} \n    groupBy: [ts, status]\n  ) {\n    ts\n    count\n  }\n}\n",
+          "refId": "A",
+          "timePath": "tsRange"
+        }
+      ],
+      "title": "Status 4xx",
+      "transformations": [],
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "fifemon-graphql-datasource",
+        "uid": "d0f5e364-208f-4e83-b8cd-d5fdd0fc18d3"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "red",
+            "mode": "shades"
+          },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "series",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "bars",
+            "fillOpacity": 25,
+            "gradientMode": "hue",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 3,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "normal"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 7,
+        "x": 14,
+        "y": 9
+      },
+      "id": 18,
+      "options": {
+        "legend": {
+          "calcs": [
+            "logmin",
+            "mean",
+            "max"
+          ],
+          "displayMode": "list",
+          "placement": "right",
+          "showLegend": false,
+          "width": 100
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "aliasBy": "2XX",
+          "annotationTags": "",
+          "annotationText": "",
+          "annotationTitle": "",
+          "constant": 6.5,
+          "dataPath": "httpEvents",
+          "datasource": {
+            "type": "fifemon-graphql-datasource",
+            "uid": "d0f5e364-208f-4e83-b8cd-d5fdd0fc18d3"
+          },
+          "endTimePath": "endTime",
+          "groupBy": "[]",
+          "queryText": "     query {\n  httpEvents(\n    limit: 10000,\n    filter: {\n      tsRange: { begin: \"${__from:date:iso}\", end: \"${__to:date:iso}\" },\n      host: \"$host\",\n      statusRange: { begin: 500, end: 599 }\n    },\n    aggregate: {count: status} \n    groupBy: [ts, status]\n  ) {\n    ts\n    count\n  }\n}\n",
+          "refId": "A",
+          "timePath": "tsRange"
+        }
+      ],
+      "title": "Status 5xx",
+      "transformations": [],
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "fifemon-graphql-datasource",
+        "uid": "d0f5e364-208f-4e83-b8cd-d5fdd0fc18d3"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            }
+          },
+          "mappings": []
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 10,
+        "x": 0,
+        "y": 17
+      },
+      "id": 11,
+      "options": {
+        "displayLabels": [
+          "percent"
+        ],
+        "legend": {
+          "displayMode": "table",
+          "placement": "right",
+          "showLegend": true,
+          "values": []
+        },
+        "pieType": "pie",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "10.0.0-cloud.3.b04cc88b",
+      "targets": [
+        {
+          "aliasBy": "",
+          "annotationTags": "",
+          "annotationText": "",
+          "annotationTitle": "",
+          "constant": 6.5,
+          "dataPath": "httpEvents",
+          "datasource": {
+            "type": "fifemon-graphql-datasource",
+            "uid": "loKOM5K4k"
+          },
+          "endTimePath": "endTime",
+          "groupBy": "httpUserAgent",
+          "queryText": "query {\n      httpEvents(\n   limit: 10,\n    filter: {\n\ttsRange: { begin: \"${__from:date:iso}\", end: \"${__to:date:iso}\" },\n\thost: \"$host\"\n\t \n\t\t},\n   aggregate: {count: host}  \n   groupBy: [httpUserAgent]\n   orderBy: [count_DESC]\n   )\n {\n   httpUserAgent\n   #status\n   count\n   \n }\n}",
+          "refId": "A",
+          "timeFormat": "",
+          "timePath": "tsRange"
+        }
+      ],
+      "title": "TOp 10  User Agents",
+      "transformations": [],
+      "transparent": true,
+      "type": "piechart"
+    },
+    {
+      "datasource": {
+        "type": "fifemon-graphql-datasource",
+        "uid": "d0f5e364-208f-4e83-b8cd-d5fdd0fc18d3"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "align": "auto",
+            "cellOptions": {
+              "type": "auto"
+            },
+            "inspect": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "_count"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "requests"
+              },
+              {
+                "id": "custom.width",
+                "value": 160
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "_requestUri"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "requestUri"
+              },
+              {
+                "id": "custom.width",
+                "value": 300
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "_ts"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "time"
+              },
+              {
+                "id": "custom.width",
+                "value": 154
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 11,
+        "x": 10,
+        "y": 17
+      },
+      "id": 12,
+      "options": {
+        "cellHeight": "lg",
+        "footer": {
+          "countRows": false,
+          "enablePagination": false,
+          "fields": "",
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
+        "showHeader": true,
+        "sortBy": [
+          {
+            "desc": true,
+            "displayName": ",/_count"
+          }
+        ]
+      },
+      "pluginVersion": "10.0.1-cloud.2.a7a20fbf",
+      "targets": [
+        {
+          "aliasBy": "",
+          "annotationTags": "",
+          "annotationText": "",
+          "annotationTitle": "",
+          "constant": 6.5,
+          "dataPath": "httpEvents",
+          "datasource": {
+            "type": "fifemon-graphql-datasource",
+            "uid": "loKOM5K4k"
+          },
+          "endTimePath": "endTime",
+          "groupBy": "time",
+          "queryText": "query {\n      httpEvents(\n   limit: 100,\n   filter: {\n\ttsRange: { begin: \"${__from:date:iso}\", end: \"${__to:date:iso}\" },\n\thost: \"$host\"\n\t \n\t\t},\n   aggregate: {count: requestUri}  \n   groupBy: [ts, requestUri]\n   orderBy: [count_DESC]\n   )\n {\n   ts\n   requestUri\n  #status\n   count\n   \n }\n}",
+          "refId": "A",
+          "timeFormat": "",
+          "timePath": "tsRange"
+        }
+      ],
+      "title": "Top 10  requestUri",
+      "transparent": true,
+      "type": "table"
+    },
+    {
+      "datasource": {
+        "type": "fifemon-graphql-datasource",
+        "uid": "d0f5e364-208f-4e83-b8cd-d5fdd0fc18d3"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "continuous-GrYlRd"
+          },
+          "mappings": [],
+          "min": 1,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 15,
+        "w": 14,
+        "x": 0,
+        "y": 26
+      },
+      "id": 22,
+      "options": {
+        "displayMode": "lcd",
+        "minVizHeight": 10,
+        "minVizWidth": 0,
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showUnfilled": true,
+        "valueMode": "color"
+      },
+      "pluginVersion": "10.0.0-cloud.3.b04cc88b",
+      "targets": [
+        {
+          "aliasBy": "",
+          "annotationTags": "",
+          "annotationText": "",
+          "annotationTitle": "",
+          "constant": 6.5,
+          "dataPath": "httpEvents",
+          "datasource": {
+            "type": "fifemon-graphql-datasource",
+            "uid": "d0f5e364-208f-4e83-b8cd-d5fdd0fc18d3"
+          },
+          "endTimePath": "endTime",
+          "groupBy": "[]",
+          "queryText": "     query {\n  httpEvents(\n    limit: 10000,\n    filter: {\n      tsRange: { begin: \"${__from:date:iso}\", end: \"${__to:date:iso}\" },\n      host: \"$host\",\n    },\n    aggregate: {count: host} \n    groupBy: [httpUserAgent]\n    orderBy: [count_DESC]\n  ) {\n    httpUserAgent\n    count\n  }\n}\n",
+          "refId": "A",
+          "timePath": "tsRange"
+        }
+      ],
+      "title": "HTTP Status by %",
+      "transformations": [
+        {
+          "id": "rowsToFields",
+          "options": {
+            "mappings": [
+              {
+                "fieldName": "_count",
+                "handlerKey": "field.value"
+              },
+              {
+                "fieldName": "_httpUserAgent",
+                "handlerKey": "field.name"
+              }
+            ]
+          }
+        }
+      ],
+      "type": "bargauge"
+    },
+    {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 41
+      },
+      "id": 9,
+      "panels": [],
+      "title": "Events",
+      "type": "row"
+    },
+    {
+      "datasource": {
+        "type": "fifemon-graphql-datasource",
+        "uid": "d0f5e364-208f-4e83-b8cd-d5fdd0fc18d3"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "align": "auto",
+            "cellOptions": {
+              "type": "auto"
+            },
+            "inspect": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "_count"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "requests"
+              },
+              {
+                "id": "custom.width",
+                "value": 160
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "_requestUri"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "requestUri"
+              },
+              {
+                "id": "custom.width",
+                "value": 300
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "_ts"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "time"
+              },
+              {
+                "id": "custom.width",
+                "value": 154
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 23,
+        "x": 0,
+        "y": 42
+      },
+      "id": 14,
+      "options": {
+        "cellHeight": "lg",
+        "footer": {
+          "countRows": false,
+          "enablePagination": false,
+          "fields": "",
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
+        "showHeader": true,
+        "sortBy": [
+          {
+            "desc": true,
+            "displayName": "_upstreamCacheStatus"
+          }
+        ]
+      },
+      "pluginVersion": "10.0.0-cloud.3.b04cc88b",
+      "targets": [
+        {
+          "aliasBy": "",
+          "annotationTags": "",
+          "annotationText": "",
+          "annotationTitle": "",
+          "constant": 6.5,
+          "dataPath": "httpEvents",
+          "datasource": {
+            "type": "fifemon-graphql-datasource",
+            "uid": "loKOM5K4k"
+          },
+          "endTimePath": "endTime",
+          "groupBy": "time",
+          "queryText": "query {\n  httpEvents(\n    limit: 10,\n    filter: {\n      tsRange: { begin: \"${__from:date:iso}\", end: \"${__to:date:iso}\" },\n      host: \"$host\"\n    },\n    groupBy: [host, status, ts, source, requestTime, upstreamCacheStatus, proxyStatus, upstreamStatus, upstreamBytesReceived, requestUri, upstreamConnectTime, upstreamResponseTime, remoteAddress, httpUserAgent, upstreamAddr, serverAddr]\n  ) {\n    ts\n    source\n    host\n    requestTime\n    upstreamCacheStatus\n    status\n    proxyStatus\n    upstreamStatus\n    upstreamBytesReceived\n    requestUri\n    upstreamConnectTime\n    upstreamResponseTime\n    remoteAddress\n    httpUserAgent\n    upstreamAddr\n    serverAddr\n  }\n}\n",
+          "refId": "A",
+          "timeFormat": "",
+          "timePath": "tsRange"
+        }
+      ],
+      "title": "HTTP info",
+      "transparent": true,
+      "type": "table"
+    }
+  ],
+  "refresh": "",
+  "schemaVersion": 38,
+  "style": "dark",
+  "tags": [],
+  "templating": {
+    "list": [
+      {
+        "datasource": {
+          "type": "fifemon-graphql-datasource",
+          "uid": "d0f5e364-208f-4e83-b8cd-d5fdd0fc18d3"
+        },
+        "filters": [],
+        "hide": 0,
+        "name": "query0",
+        "skipUrlSync": false,
+        "type": "adhoc"
+      },
+      {
+        "current": {
+          "selected": false,
+          "text": "www.chandelier.eti.br",
+          "value": "www.chandelier.eti.br"
+        },
+        "datasource": {
+          "type": "fifemon-graphql-datasource",
+          "uid": "d0f5e364-208f-4e83-b8cd-d5fdd0fc18d3"
+        },
+        "definition": "query {\n  httpEvents(\n    limit: 10000,\n  ) {\n    host\n  }\n}\n (httpEvents)",
+        "hide": 0,
+        "includeAll": false,
+        "label": "host",
+        "multi": false,
+        "name": "host",
+        "options": [],
+        "query": {
+          "dataPath": "httpEvents",
+          "queryText": "query {\n  httpEvents(\n    limit: 10000,\n  ) {\n    host\n  }\n}\n"
+        },
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "type": "query"
+      }
+    ]
+  },
+  "time": {
+    "from": "now-2d",
+    "to": "now"
+  },
+  "timepicker": {},
+  "timezone": "browser",
+  "title": "Dashboard Exemple - Azion - HOMOLOG",
+  "uid": "ba8ce7d5-bd68-4fde-b327-1a573f322707",
+  "version": 29,
+  "weekStart": ""
+}
